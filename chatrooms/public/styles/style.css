@@ -1,0 +1,94 @@
+body {
+    padding: 50px;
+    font: 14px 'Lucida Grande', Helvetica, Arial, sans-serif;
+}
+
+div#content {
+    width: 800px;
+    overflow: hidden;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div div#room {
+    width: 690px;
+    height: 30px;
+    float: left;
+    border: 1px solid black;
+    color: red;
+    font-size: 25px;
+    background-color: white;
+    margin-bottom: 1em;
+    margin-left: 2px;
+    text-align: center;
+}
+div div#room i span {
+    float: right;
+    font-size: 15px;
+    margin-right: 2px;
+}
+
+button#create-room {
+    width: 100px;
+    height: 30px;
+    float: right;
+    background-color: white;
+    color: blue;
+    font-size: 18px;
+}
+
+div div#messages {
+    width: 690px;
+    height: 300px;
+    background-color: rgb(228, 218, 218);
+    margin-bottom: 1em;
+    margin-right: 10px;
+    overflow: auto;
+}
+
+div div#room-list {
+    float: right;
+    width: 100px;
+    height: 300px;
+    overflow: auto;
+}
+
+div div#room-list div {
+    border-bottom: 1px solid yellow;
+    clear: both;
+}
+
+div div#room-list div:hover {
+    background-color:white;
+}
+
+#send-message {
+    width: 690px;
+    height: 30px;
+    margin-bottom: 1em;
+    margin-right: 1em;
+    border: 1px solid black;
+}
+
+#help {
+    font: 10px 'Lucida Grande', Helvetica, Arial, sans-serif;
+}
+
+li.system-message {
+    list-style: none;
+    color: rgb(255, 0, 0);
+}
+
+li.user-message {
+    color: black;
+}
+
+div#help ul li {
+    font-size: 18px;
+}
+
+button#change-name {
+    background-color: wheat;
+    color: black;
+    font: 18px;
+}
