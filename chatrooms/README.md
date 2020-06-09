@@ -4,6 +4,7 @@
 - `sockets on('connection', callback)` execute `callback` for each `socket in sockets`
 
 # Issues
+- `mime`can not work with `mime.lookup()`, change to `require('mime-type')`
 - `/chat_ui.js: 40` set `io.connect('http://localhost:8000')` to connect `server` and `client-side`
 - `/chat.js: 52` exports `Chat` so that `/chat_ui.js` can work correctly. otherwise, errors on `Chat object not defined`
 - __user behaviors such as `change name`, `create room`, `send message` have to be `emit` by `Chat object`. Then, `socket.on(behavior, callback)` at server side will deal with data and finally `emit` to client side. Otherwise, users can not interact with each other, because, with no server-side, all data updates finish on static file and thus others can not see others' message.__ 
