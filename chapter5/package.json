@@ -1,0 +1,17 @@
+{
+  "name": "chapter5",
+  "version": "1.0.0",
+  "description": "Dengpan Wang",
+  "main": "scheduler.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Dengpan Wang",
+  "license": "ISC",
+  "dependencies": {
+    "mysql": "^2.18.1"
+  }
+}

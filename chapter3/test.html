@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <script>
+            setTimeout(() => {
+                let time = new Date();
+                let anchor = time.getMinutes() + ':' + time.getSeconds();
+                console.log('first:' + anchor);
+                setTimeout( () => {
+                    let time = new Date();
+                    let anchor = time.getMinutes() + ':' + time.getSeconds();
+                    console.log('second:' + anchor);
+                    setTimeout(() => {
+                        let time = new Date();
+                        let anchor = time.getMinutes() + ':' + time.getSeconds();
+                        console.log('final:' + anchor);
+                    }, 1000);
+                }, 1000);
+            }, 1000);
+        </script>
+    </body>
+</html>
