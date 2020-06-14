@@ -40,7 +40,7 @@ User.prototype.executeUpdate = function(statement, values) {
     console.log('-----------------Inserted!')
     this.hashPassword();
 } //return a Promise
-User.prototype.save = function(fn) {
+User.prototype.save = async function() {
 
     let queryStr = 'INSERT INTO users (name, pass, age)' + 'VALUES (?, ?, ?)';
     let values = [this.name, this.pass, this.age];
@@ -51,7 +51,7 @@ User.prototype.save = function(fn) {
     }
 
     this.executeUpdate(queryStr, values);
-    return Promise.resolve();
+    return;
 }; //return a Promise
 
 User.prototype.update = function(col, value) {
@@ -64,13 +64,8 @@ User.prototype.update = function(col, value) {
         });
 };
 
-User.prototype.hashPassword = async function(fn) {
-    let salt = await new Promise((resolve, reject) => {
-        bcrypt.genSalt(12, (err, salt) => {
-            if (err) return reject(err);
-            resolve(salt);
-        });
-    });
+User.prototype.hashPassword = async function() {
+    let salt = await bcrypt.genSalt(12);
     let hash = await bcrypt.hash(this.pass, salt);
     this.update('salt', salt);
     this.update('pass', hash);

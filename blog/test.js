@@ -23,21 +23,20 @@
 
 // query();
 
-// const mysql = require('mysql');
+const mysql = require('mysql');
 
+let db = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '961002',
+    database: 'scheduler'
+});
 
-// let db = mysql.createConnection({
-//     host: 'localhost',
-//     user: 'root',
-//     password: '961002',
-//     database: 'scheduler'
-// });
-
-// let User = function(obj) {
-//     for (let key in obj) {
-//         this[key] = obj[key];
-//     };
-// };
+let User = function(obj) {
+    for (let key in obj) {
+        this[key] = obj[key];
+    };
+};
 
 // let queryUser = function(statement, values) {
 //     return new Promise((resolve, reject) => {
@@ -48,11 +47,20 @@
 //     });
 // }
 
-// let queryStr = 'SELECT * FROM users WHERE name=?'
-// let value = 'simon'
-// queryUser(queryStr, value).then(result => {
-//     let user = new User(result[0]);
-//     console.log(user)});
+let queryUser = async function(statement, values) {
+    let result = await db.query(statement, values, (err, rows) => {
+        if (err) throw err;
+        console.log(rows)
+        return rows[0];
+    });
+
+    return result;
+}
+let queryStr = 'SELECT * FROM users WHERE name=?'
+let value = 'simon'
+queryUser(queryStr, value).then(result => {
+    let user = new User(result[0]);
+    console.log(user)});
 
 // let executeQuery = function(statement, values) {
 //     return new Promise((resolve, reject) => {
@@ -78,20 +86,4 @@
 // executeUpdate(stat, values).then(() => {
 //     console.log('Updated!');
 // });
-const bcrypt = require('bcrypt');
-let pass = 'simon';
 
-let salt = async function() {
-    let salt = await bcrypt.genSalt(12);
-    return salt;
-}
-
-let hash = async function() {
-    let salt = await bcrypt.genSalt(12);
-    console.log(salt);
-    let hash = await bcrypt.hash(pass, salt);
-    console.log('1');
-    return hash;
-}
-
-hash().then(hash => console.log(hash))  

@@ -32,6 +32,22 @@ exports.submit = (req, res, next) => {
     }).catch(err => next(err));
 }
 
+// async submit
+// exports.submit = async (req, res, next) => {
+//     let data = req.body.user;
+//     let user = await User.authenticate(data.name, data.pass);
+//     try {
+//         if (user) {
+//             req.session.id = user.id;
+//             res.redirect('/');
+//         } else {
+//             req.error('Sorry@ Invalid credientials');
+//             res.redirect('/login');
+//         }
+//     } catch(err) {
+//         next(err);
+//     } 
+// }
 exports.logout = (req, res) => {
     req.session.destory((err) => {
         if (err) throw err;
