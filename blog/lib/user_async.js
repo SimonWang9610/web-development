@@ -38,7 +38,7 @@ User.prototype.executeUpdate = function(statement, values) {
             if (err) throw err;
         });
     console.log('-----------------Inserted!')
-    return this.hashPassword();
+    this.hashPassword();
 } //return a Promise
 User.prototype.save = function(fn) {
 
@@ -50,7 +50,8 @@ User.prototype.save = function(fn) {
         values = [this.pass, this.age, this.id];
     }
 
-    return this.executeUpdate(queryStr, values);
+    this.executeUpdate(queryStr, values);
+    return Promise.resolve();
 }; //return a Promise
 
 User.prototype.update = function(col, value) {
@@ -63,28 +64,20 @@ User.prototype.update = function(col, value) {
         });
 };
 
-User.prototype.hashPassword = function(fn) {
-    let salt_temp = '';
-    let salt = new Promise((resolve, reject) => {
+User.prototype.hashPassword = async function(fn) {
+    let salt = await new Promise((resolve, reject) => {
         bcrypt.genSalt(12, (err, salt) => {
             if (err) return reject(err);
             resolve(salt);
         });
     });
-    return salt.then(salt => {
-            salt_temp = salt;
-            return bcrypt.hash(this.pass, salt); //callback is empty, return a Promise;
-        }).then(hash => {
-            console.log(salt_temp, hash);
-            this.update('salt', salt_temp);
-            this.update('pass', hash);
-            return Promise.resolve();
-        });
+    let hash = await bcrypt.hash(this.pass, salt);
+    this.update('salt', salt);
+    this.update('pass', hash);
 }; //return a Promise
 
 User.queryUser =  function(key, identity) {
     let queryStr = 'SELECT * FROM users WHERE ' + key + '=?';
-
     return new Promise((resolve, reject) => {
         db.query(queryStr, [identity], (err, result) => {
             if (err) return reject(err);
@@ -101,19 +94,11 @@ User.getByName = function(name) {
 User.getId = function(id) {
     return User.queryUser('id', id);
 }
-User.authenticate = function(name, pass) {
-    let user = User.getByName(name);
-    let user_copy = '';
-    return user.then(user => {
-        user_copy = user;
-        if (user) {
-            return bcrypt.hash(pass, user.salt);
-        }
-        return false;
-    }).then(hash => {
-        if (hash == user_copy.pass) return user_copy;
-        return false;
-    });
+User.authenticate = async function(name, pass) {
+    let user = await User.getByName(name);
+    let hash = await bcrypt.hash(pass, user.salt);
+    if (hash == user.pass) return user;
+    return false;
 }
 
 module.exports = User;

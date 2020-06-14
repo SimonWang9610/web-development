@@ -24,7 +24,7 @@
 // query();
 
 // const mysql = require('mysql');
-const bcrypt = require('bcrypt');
+
 
 // let db = mysql.createConnection({
 //     host: 'localhost',
@@ -78,18 +78,20 @@ const bcrypt = require('bcrypt');
 // executeUpdate(stat, values).then(() => {
 //     console.log('Updated!');
 // });
-let a = 5;
-let number = function() {
-    return 1;
+const bcrypt = require('bcrypt');
+let pass = 'simon';
+
+let salt = async function() {
+    let salt = await bcrypt.genSalt(12);
+    return salt;
 }
-new Promise((resolve, reject) => {
-    resolve('5');
-}).then((digit) => {
-    console.log('second promise');
-    let b = number();
-    console.log(b);
-    return [digit, b];
-}).then(values => {
-    console.log(values)
-    values.forEach(value => console.log(value));
-});
+
+let hash = async function() {
+    let salt = await bcrypt.genSalt(12);
+    console.log(salt);
+    let hash = await bcrypt.hash(pass, salt);
+    console.log('1');
+    return hash;
+}
+
+hash().then(hash => console.log(hash))  

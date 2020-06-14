@@ -1,4 +1,4 @@
-const User = require('../lib/user_promise');
+const User = require('../lib/user_async');
 
 exports.form = function(req, res) {
     res.render('register', {title: 'Register'});
