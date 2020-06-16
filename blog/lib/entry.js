@@ -32,20 +32,11 @@ Entry.prototype.save = async function() {
     );
     return;
 };
-
-Entry.prototype.delete = async function() {
-    db.query('DELETE FROM entries WHERE username=?, date=?', [this.username, this.date],
-    (err) => {
-        if (err) throw err;
-    });
-    return;
-};
-
 Entry.getMoments = function(key, identity) {
 
     let queryStr = 'SELECT * FROM entries';
 
-    if (key) queryStr += 'WHERE ' + key + '=' + identity;
+    if (key) queryStr += ' WHERE ' + key + '=' + identity;
     return new Promise((resolve, reject) => {
         db.query(
             queryStr + ' ORDER BY date DESC',
@@ -57,6 +48,10 @@ Entry.getMoments = function(key, identity) {
     });
 }; //return a promise
 
+Entry.getMomentsById = async function(id) {
+    let row = await Entry.getMoments('id', id);
+    return row[0];
+}
 
 Entry.getMomentsByName = async function(name) {
     let rows = await Entry.getMoments('username', name);
@@ -80,5 +75,29 @@ Entry.count = async function() {
     return rows.length;
 }
 
-Entry.delete = 
+Entry.delete = async function(id) {
+    return new Promise((resolve, reject) => {
+        db.query(
+            'DELETE FROM entries WHERE id=?', [id],
+            (err) => {
+                if (err) return reject(err);
+                return resolve();
+            }
+        );
+    });
+};
+
+Entry.edit = async function(id, data, date) {
+    return new Promise((resolve, reject) => {
+        db.query(
+            'UPDATE entries SET title=?, date=?, body=? WHERE id=?',
+            [data.title, date, data.body, id],
+            (err) => {
+                if (err) return reject(err);
+                return resolve();
+            }
+        );
+    });
+};
+
 module.exports = Entry;

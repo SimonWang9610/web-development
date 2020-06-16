@@ -2,8 +2,12 @@ const basicAuth = require('express-basic-auth');
 const User = require('../lib/user_async');
 const Entry = require('../lib/entry');
 
+async function getBoolValue(username, password) {
+    let result = await User.authenticate(username, password);
+    return Boolean(result);
+}
 exports.auth = basicAuth({
-    authorizer: User.authenticate,
+    authorizer: getBoolValue,
 
 });
 

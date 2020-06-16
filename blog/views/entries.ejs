@@ -27,8 +27,8 @@
                     
                     <span><i><%= row.username %></i> posted at <i><%= row.date %></i></span>
                     <% if (locals.user && (locals.user.name == row.username)) { %>
-                        <a href='/edit'>Edit</a>
-                        <a href='/delete'>Delete</a>
+                        <a href='/edit/<%= row.id %>'>Edit</a>
+                        <a href='/delete/<%= row.id %>'>Delete</a>
                     <% } %>
                 </div>
                 

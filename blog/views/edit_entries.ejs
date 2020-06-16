@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><%= title %></title>
+        <link rel='stylesheet' href='/styles/style.css'>
+    </head>
+    <body>
+        <%- include('menu') -%>
+        <div id='post-form'>
+            <form action='/edit/<%= id %>' method='post'>
+                <p>
+                    <input type='text' name='row[title]' value='<%= entry.title %>'>
+                </p>
+                <p>
+                    <textarea name='row[body]'><%= entry.body %></textarea>
+                </p>
+                <p>
+                    <input type='submit' value='Edit'>
+                </p>
+            </form>
+        </div>
+    </body>
+</html>

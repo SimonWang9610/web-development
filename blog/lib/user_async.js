@@ -97,7 +97,7 @@ User.getById = function(id) {
 User.authenticate = async function(name, pass) {
     let user = await User.getByName(name);
     let hash = await bcrypt.hash(pass, user.salt);
-    if (hash == user.pass) return true;
+    if (hash == user.pass) return new User(user);
     return false;
 }
 

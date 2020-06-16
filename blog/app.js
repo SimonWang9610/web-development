@@ -41,6 +41,10 @@ app.get('/:page?', page(Entry.count, 5), entries.list);
 // app.get('/post', entries.form);
 app.post('/post', entries.submit);
 
+app.get('/edit/:id', entries.edit);
+app.post('/edit/:id', entries.edited);
+app.get('/delete/:id', entries.delete);
+
 app.get('/api/user/:id', api.user);
 app.get('/api/entries/:page?', page(Entry.count, 5), api.entries);
 app.post('/api/entry', entries.submit);
