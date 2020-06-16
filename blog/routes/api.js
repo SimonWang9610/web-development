@@ -8,7 +8,6 @@ exports.auth = basicAuth({
 });
 
 exports.user = function(req, res, next) {
-    if (req.remoteUser) console.log('API connection!');
     User.getById(req.params.id).then(user => {
         if(!user) return res.send(404);
         res.json(user);
