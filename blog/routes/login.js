@@ -23,10 +23,10 @@ exports.submit = (req, res, next) => {
     let data = req.body.user;
     User.authenticate(data.name, data.pass).then(user => {
         if (user) {
-            req.session.id = user.id;
+            req.session.uid = user.id;
             res.redirect('/');
         } else {
-            // req.error('Sorry! Invalid credientials!');
+            // res.error('Sorry! Invalid credientials!');
             res.redirect('/login');
         }
     }).catch(err => next(err));
@@ -49,7 +49,10 @@ exports.submit = (req, res, next) => {
 //     } 
 // }
 exports.logout = (req, res) => {
-    req.session.destory((err) => {
+    // req.session.destroy();
+    // req.logout();
+    // res.redirect('/');
+    req.session.destroy((err) => {
         if (err) throw err;
         res.redirect('/');
     });

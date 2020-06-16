@@ -16,7 +16,6 @@ let createTable = 'CREATE TABLE IF NOT EXISTS users (' + 'id INT(10) NOT NULL PR
 db.query(
     createTable, (err) => {
         if (err) throw err;
-        console.log('TABLE users created!');
     }
 );
 

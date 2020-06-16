@@ -1,17 +1,91 @@
-#menu {
+
+ div#menu {
     position: absolute;
     top: 15px;
     right: 20px;
-    font-size: 12px;
+    font-size: 30px;
     color: grey;
 }
 
-#menu .name:after {
+div#menu .name:after {
     content: ' -';
 }
 
-#menu a {
+div#menu a {
     text-decoration: none;
     margin-left: 5px;
-    color:black;
+    color:red;
+}
+
+div.row {
+    border-top: 1px dashed black;
+    border-bottom: 1px dashed black;
+    margin: auto;
+    padding: 5px;
+    height: 100px;
+    width: 600px;
+}
+
+.row div {
+    clear: none;
+}
+
+.author {
+    float: left;
+}
+
+.author img {
+    width: 100px;
+    height: 100px;
+    margin-left: 0px;
+}
+
+.posts {
+    border-left: 1px solid black;
+    height: 100px;
+    background-color: grey;
+    width:499px;
+    font-size: 18px;
+    margin-right: 0px;
+    float: right;
+}
+
+.posts p {
+    margin-left: 2px;
+}
+.posts span {
+    box-align: right;
+    margin-left: 2px;
+    font-size: 10px;
+}
+
+#post-form {
+    margin: auto;
+}
+#post-form form {
+    margin: auto;
+    text-align: center;
+    display: inline-block;
+}
+
+#post-form input {
+    width: 600px;
+}
+
+#post-form textarea {
+    width: 600px;
+    height: 100px;
+    margin: auto;
+}
+
+#pager {
+    clear: both;
+    float: left;
+    margin: auto;
+    font-size: 15px;
+    color: blue;
+}
+
+#pager a:visited {
+    color: red;
 }

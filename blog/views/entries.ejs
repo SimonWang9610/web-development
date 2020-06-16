@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><%= title %></title>
+        <link rel='stylesheet' href='/styles/style.css'>
+    </head>
+    <body>
+        <%- include('menu') -%>
+        
+        <% if(locals.user) { %>
+            <%- include('post') -%>
+        <% } %>
+        
+        <% entries.forEach((row) => { %>
+            <div class='row'>
+                <div class='author'>
+                    <img href='/images/bird.jpg' alt='picture'>
+                </div>
+                <div class='posts'>
+                    <p>
+                        <% if (row.title) { %>
+                            <%= row.title %>
+                        <% } %>
+                        </br>
+                        <%= row.body %>
+                    </p>
+                    
+                    <span><i><%= row.username %></i> posted at <i><%= row.date %></i></span>
+                    <% if (locals.user && (locals.user.name == row.username)) { %>
+                        <a href='/edit'>Edit</a>
+                        <a href='/delete'>Delete</a>
+                    <% } %>
+                </div>
+                
+            </div>
+        <% }) %>
+        <%- include('pager') -%>
+        
+    </body>
+</html>

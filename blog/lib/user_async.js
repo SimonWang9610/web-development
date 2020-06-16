@@ -16,7 +16,6 @@ let createTable = 'CREATE TABLE IF NOT EXISTS users (' + 'id INT(10) NOT NULL PR
 db.query(
     createTable, (err) => {
         if (err) throw err;
-        console.log('TABLE users created!');
     }
 );
 
@@ -71,6 +70,12 @@ User.prototype.hashPassword = async function() {
     this.update('pass', hash);
 }; //return a Promise
 
+User.prototype.toJSON = function() {
+    return {
+        id: this.id,
+        name: this.name,
+    }
+}
 User.queryUser =  function(key, identity) {
     let queryStr = 'SELECT * FROM users WHERE ' + key + '=?';
     return new Promise((resolve, reject) => {
@@ -86,13 +91,13 @@ User.getByName = function(name) {
     return User.queryUser('name', name);
 };
 
-User.getId = function(id) {
+User.getById = function(id) {
     return User.queryUser('id', id);
 }
 User.authenticate = async function(name, pass) {
     let user = await User.getByName(name);
     let hash = await bcrypt.hash(pass, user.salt);
-    if (hash == user.pass) return user;
+    if (hash == user.pass) return true;
     return false;
 }
 
